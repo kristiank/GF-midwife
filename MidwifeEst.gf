@@ -3,12 +3,12 @@ concrete MidwifeEst of Midwife =
   LexiconEst, GrammarEst, ResEst in {
 
   lincat
-    Statement = S ;
+    Statement             = S ;
     Complaint, Complaints = NP ;
-    Limb = {s : NP ; prep : Prep } ;
-    Subject = NP ;
-    FetalMovementLevel = Adv ;
-    HaemoglobinLevel = AP ;
+    Limb                  = {s : NP ; prep : Prep} ;
+    Subject               = NP ;
+    FetalMovementLevel    = Adv ;
+    HaemoglobinLevel      = AP ;
 
 
   lin
@@ -18,18 +18,17 @@ concrete MidwifeEst of Midwife =
 
     -- Subjects
     Patient   = mkNP (mkN "patsient") ;
-    -- Myself = mkNP i_Pron ;
 
     -- Swelling of Limbs
     Swelling limb = mkNP (mkNP aPl_Det (mkCN (mkN "turse"))) (SyntaxEst.mkAdv limb.prep limb.s) ;
 
-    Hands = {s = mkNP aPl_Det (mkN "käsi" "käe" "kätt" "käesse" "käte" "käsi");
+    Hands = {s    = mkNP aPl_Det (mkN "käsi" "käe" "kätt" "käesse" "käte" "käsi");
              prep = on_Prep} ;
-    Feet  = {s = mkNP aPl_Det (mkN "jalg" "jala" "jalga");
+    Feet  = {s    = mkNP aPl_Det (mkN "jalg" "jala" "jalga");
              prep = on_Prep} ;
-    HandsAndFeet = {s = GrammarEst.ConjNP and_Conj (GrammarEst.BaseNP Hands.s Feet.s)
-                      | GrammarEst.ConjNP and_Conj (GrammarEst.BaseNP Feet.s Hands.s);
-                    prep = on_Prep};
+    HandsAndFeet  = {s = GrammarEst.ConjNP and_Conj (GrammarEst.BaseNP Hands.s Feet.s)
+                       | GrammarEst.ConjNP and_Conj (GrammarEst.BaseNP Feet.s Hands.s);
+                     prep = on_Prep};
 
 
     -- Complaints
@@ -46,18 +45,21 @@ concrete MidwifeEst of Midwife =
 
 
 
-    -- FeelsFetalMovements level = mkS (mkCl (mkNP (mkN "patsient")) (mkVP (mkVP (mkV2 (mkV "tundma" "tunda" "tunneb")) (mkNP (mkN "loote" (mkN "liigutusi")))) level)) ;
-    FeelsFetalMovements level = mkS (mkCl (mkNP (mkN "patsient")) (mkVP level (mkVP (mkV2 (mkV "tundma" "tunda" "tunneb")) (mkNP (mkN "loote" (mkN "liigutusi")))) )) ;
+    -- tunneb looteliigitusi aktiivselt
+    FeelsFetalMovements level = mkS (mkCl (mkNP (mkN "patsient"))
+                                          (mkVP level
+                                                (mkVP (mkV2 (mkV "tundma" "tunda" "tunneb"))
+                                                (mkNP (mkN "loote" (mkN "liigutusi")))) )) ;
     Strong = SyntaxEst.mkAdv (invA "hästi") ;    -- hästi
     Active = SyntaxEst.mkAdv (mkA  "aktiivne") ; -- aktiivselt
     Weak   = SyntaxEst.mkAdv (invA "vähe") ;     -- vähe
 
 
-
+    -- hemoglobiin on väga madal
+    HaemoglobinFinding level = mkS (mkCl (mkNP (mkN "hemoglobiin")) level) ;
     HaemoglobinHigh    = mkAP          (mkA "kõrge") ;
     HaemoglobinNormal  = mkAP          (mkA "normaalne") ;
     HaemoglobinLow     = mkAP          (mkA "madal") ;
     HaemoglobinVeryLow = mkAP very_AdA (mkA "madal") ;
-    HaemoglobinFinding level = mkS (mkCl (mkNP (mkN "hemoglobiin")) level) ;
 
 }

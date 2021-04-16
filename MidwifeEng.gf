@@ -1,13 +1,14 @@
 concrete MidwifeEng of Midwife =
   open Prelude, SyntaxEng, ParadigmsEng,
-  LexiconEng, GrammarEng, ResEng in {
+  LexiconEng, GrammarEng in {
 
   lincat
-    Statement = S ;
+    Statement          = S ;
     Complaint, Complaints = NP ;
-    Limb = {s : NP ; prep : Prep } ;
-    Subject = NP ;
+    Limb               = { s : NP ; prep : Prep } ;
+    Subject            = NP ;
     FetalMovementLevel = Adv ;
+    HaemoglobinLevel   = AP ;
 
 
   lin
@@ -16,16 +17,15 @@ concrete MidwifeEng of Midwife =
 
     -- Subjects
     Patient   = mkNP (mkN "patient") ;
-    -- Myself = mkNP i_Pron ;
 
     -- Limbs
-    Hands = {s = mkNP aPl_Det (mkN "hand");
+    Hands = {s    = mkNP aPl_Det (mkN "hand");
              prep = possess_Prep} ;
-    Feet  = {s = mkNP aPl_Det (mkN "foot" "feet");
+    Feet  = {s    = mkNP aPl_Det (mkN "foot" "feet");
              prep = possess_Prep} ;
-    HandsAndFeet = {s = GrammarEng.ConjNP and_Conj (GrammarEng.BaseNP Hands.s Feet.s)
-                      | GrammarEng.ConjNP and_Conj (GrammarEng.BaseNP Feet.s Hands.s);
-                    prep = possess_Prep};
+    HandsAndFeet  = {s = GrammarEng.ConjNP and_Conj (GrammarEng.BaseNP Hands.s Feet.s)
+                       | GrammarEng.ConjNP and_Conj (GrammarEng.BaseNP Feet.s Hands.s);
+                     prep = possess_Prep};
 
     -- Complaints
     --NoComplaints = mkNP (mkN "worryless") ;
@@ -41,9 +41,23 @@ concrete MidwifeEng of Midwife =
     Complaints2 c1 c2    = GrammarEng.ConjNP and_Conj (GrammarEng.BaseNP c1 c2) ; -- "pearinglus ja pearinglus"
     Complaints3 c1 c2 c3 = GrammarEng.ConjNP and_Conj (GrammarEng.ConsNP c3 (GrammarEng.BaseNP c1 c2)) ; -- "pearinglus, pearinglus ja pearinglus"
 
-    
-    FeelsFetalMovements level = mkS (mkCl (mkNP (mkN "patient")) (mkVP (mkVP (mkV2 (mkV "feel")) (mkNP (mkN "fetal" (mkN "movement")))) level)) ;
-    Strong = SyntaxEng.mkAdv (mkA "well") ;    -- hästi
-    Active = SyntaxEng.mkAdv (mkA "active") ; -- aktiivselt
-    Weak   = SyntaxEng.mkAdv (mkA "slight") ;     -- vähe
+
+    -- the patient feels fetal movements strongly
+    FeelsFetalMovements level = mkS (mkCl (mkNP (mkN "patient"))
+                                          (mkVP (mkVP (mkV2 (mkV "feel"))
+                                                (mkNP (mkN "fetal" (mkN "movement"))))
+                                                level)) ;
+    Strong = SyntaxEng.mkAdv (mkA "strong") ;
+    Active = SyntaxEng.mkAdv (mkA "active") ;
+    Weak   = SyntaxEng.mkAdv (mkA "weak") ;
+
+
+
+    -- hemoglobin is low
+    HaemoglobinHigh    = mkAP          (mkA "high") ;
+    HaemoglobinNormal  = mkAP          (mkA "normal") ;
+    HaemoglobinLow     = mkAP          (mkA "low") ;
+    HaemoglobinVeryLow = mkAP very_AdA (mkA "low") ;
+    HaemoglobinFinding level = mkS (mkCl (mkNP (mkN "hemoglobin")) level) ;
+
 }

@@ -17,7 +17,6 @@ concrete MidwifeSno of Midwife =
 
     -- Subjects
     Patient   = {s = "patient"} ;
-    -- Myself = mkNP i_Pron ;
 
     -- Complaints
     Nausea       = {s = "162057007 |Nausea present (situation)|"} ;

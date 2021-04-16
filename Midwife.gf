@@ -24,7 +24,7 @@ abstract Midwife = {
     Complaints3  : Complaint -> Complaint -> Complaint -> Complaints ;
 
     -- Subjects
-    Myself, Patient : Subject ;
+    Patient : Subject ;
 
     -- Complaints without modifiers
     Nausea, Heartburn, Constipation, Dizziness : Complaint ;
