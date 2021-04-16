@@ -8,7 +8,8 @@ abstract Midwife = {
     Complaint ;
     Complaints ;
     Limb ;
-    FetalMovement ;
+    FetalMovementLevel ;
+    HaemoglobinLevel ;
     
 
   data
@@ -33,8 +34,15 @@ abstract Midwife = {
     Hands, Feet, HandsAndFeet, Unspecified : Limb ;
 
     -- Fetal movement finding
-    FeelsFetalMovements : FetalMovement -> Statement ;
+    FeelsFetalMovements : FetalMovementLevel -> Statement ;
 
     -- Levels of fetal movement
-    Strong, Active, Weak : FetalMovement ;
+    Strong, Active, Weak : FetalMovementLevel ;
+
+
+    -- Haemoglobin finding
+    HaemoglobinFinding : HaemoglobinLevel -> Statement ;
+
+    -- Levels of haemoglobin
+    HaemoglobinHigh, HaemoglobinNormal, HaemoglobinLow, HaemoglobinVeryLow : HaemoglobinLevel ;
 }
