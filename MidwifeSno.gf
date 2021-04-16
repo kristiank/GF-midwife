@@ -3,10 +3,10 @@ concrete MidwifeSno of Midwife =
   LexiconEng, GrammarEng, ResEng in {
 
   lincat
-    Statement = {s : Str} ;
+    Statement          = {s : Str} ;
     Complaint, Complaints = {s : Str} ;
-    Limb = {s : Str } ;
-    Subject = {s : Str} ;
+    Limb               = {s : Str } ;
+    Subject            = {s : Str} ;
     FetalMovementLevel = {s : Str} ;
 
 
@@ -16,7 +16,7 @@ concrete MidwifeSno of Midwife =
     HasNoComplaints subject  = {s = "248264000 |No complaints (finding)|" };
 
     -- Subjects
-    Patient   = {s = "patient"} ;
+    Patient      = {s = "patient"} ;
 
     -- Complaints
     Nausea       = {s = "162057007 |Nausea present (situation)|"} ;
