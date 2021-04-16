@@ -12,9 +12,13 @@ concrete MidwifeEst of Midwife =
 
 
   lin
-    Has subject complaints  = mkS             (mkCl subject have_V2 complaints) ; -- "patsiendil on pearinglus"
+    -- patsiendil on pearinglus
+    Has subject complaints  = mkS             (mkCl subject have_V2 complaints) ;
+    -- patsiendil ei ole kaebusi / patsient on ilma kaebusteta
     HasNoComplaints subject = mkS negativePol (mkCl subject have_V2 (mkNP aPl_Det (mkN "kaebus")))
-                            | mkS (mkCl subject (SyntaxEst.mkAdv without_Prep (mkNP thePl_Det (mkN "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta"))));
+                            | mkS (mkCl subject (SyntaxEst.mkAdv without_Prep (mkNP thePl_Det (mkN "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta"))))
+                            | mkS (mkCl subject (                             (mkNP theSg_Det (mkN "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta" "kaebusteta"))));
+
 
     -- Subjects
     Patient   = mkNP (mkN "patsient") ;
@@ -50,6 +54,7 @@ concrete MidwifeEst of Midwife =
                                           (mkVP level
                                                 (mkVP (mkV2 (mkV "tundma" "tunda" "tunneb"))
                                                 (mkNP (mkN "loote" (mkN "liigutusi")))) )) ;
+
     Strong = SyntaxEst.mkAdv (invA "hästi") ;    -- hästi
     Active = SyntaxEst.mkAdv (mkA  "aktiivne") ; -- aktiivselt
     Weak   = SyntaxEst.mkAdv (invA "vähe") ;     -- vähe
@@ -57,6 +62,7 @@ concrete MidwifeEst of Midwife =
 
     -- hemoglobiin on väga madal
     HaemoglobinFinding level = mkS (mkCl (mkNP (mkN "hemoglobiin")) level) ;
+
     HaemoglobinHigh    = mkAP          (mkA "kõrge") ;
     HaemoglobinNormal  = mkAP          (mkA "normaalne") ;
     HaemoglobinLow     = mkAP          (mkA "madal") ;
